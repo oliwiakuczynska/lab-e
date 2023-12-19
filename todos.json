@@ -6,6 +6,27 @@
       "completed": false,
       "archived": false,
       "id": 4
+    },
+    {
+      "title": "Odrobic lekcje",
+      "deadline": "2023-12-15",
+      "completed": true,
+      "archived": true,
+      "id": 5
+    },
+    {
+      "title": "Odkurzanie",
+      "deadline": "2023-12-14",
+      "completed": true,
+      "archived": true,
+      "id": 6
+    },
+    {
+      "title": "odkurzyc",
+      "deadline": "2023-12-14T23:00:00.000Z",
+      "completed": false,
+      "archived": false,
+      "id": 7
     }
   ]
 }

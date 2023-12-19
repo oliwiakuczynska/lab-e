@@ -3,7 +3,6 @@ import {TasksService} from "../tasks.service";
 import {Task} from "../task";
 import {forkJoin, Observable} from "rxjs";
 
-
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -34,7 +33,7 @@ export class TasksComponent implements OnInit {
     this.newTask.completed = false;
     this.newTask.archived = false;
 
-    this.tasks.unshift(this.newTask);
+    this.tasks.unshift(this.newTask); // optimistic update; try commenting this line off and compare the difference
 
     this.tasksService.post(this.newTask).subscribe((task) => {
       this.newTask = {};
@@ -62,10 +61,26 @@ export class TasksComponent implements OnInit {
       observables.push(this.tasksService.put(task));
     }
 
+    // refresh page when all updates finished
     forkJoin(observables).subscribe(() => {
       this.ngOnInit();
     });
   }
 
-  
+  canArchiveCompleted() {
+    for (const task of this.tasks) {
+      if (task.completed) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  canAddTask() {
+    if (this.isProcessing) {
+      return false;
+    }
+
+    return !!this.newTask.title;
+  }
 }
